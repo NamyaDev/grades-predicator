@@ -273,8 +273,13 @@ public class Predicator implements ActionListener {
             result += gradeList.get(i) * creditList.get(i);
             creditSum += creditList.get(i);
         }
-        average = result / creditSum;
+        if (creditSum == 0){
+            average = 0;
+        } else {
+            average = result / creditSum;
+        }
         resultBox.setText("AVERAGE: " + average);
+
 
     }
 }
