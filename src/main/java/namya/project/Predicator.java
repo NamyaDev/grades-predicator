@@ -57,15 +57,12 @@ public class Predicator implements ActionListener {
 
         subjectPanel = new JPanel();
         subjectPanel.setLayout(new BorderLayout());
-        subjectPanel.setBackground(Color.lightGray);
 
         gradesPanel = new JPanel();
         gradesPanel.setLayout(new BorderLayout());
-        gradesPanel.setBackground(Color.lightGray);
 
         creditsPanel = new JPanel();
         creditsPanel.setLayout(new BorderLayout());
-        creditsPanel.setBackground(Color.lightGray);
 
         textFieldPanel = new JPanel();
         textFieldPanel.setLayout(new BorderLayout());
@@ -92,18 +89,20 @@ public class Predicator implements ActionListener {
 
 
         table = new JTable();
-//        table.setBackground(new Color(238,238,238));
         model = new DefaultTableModel();
         column = new Object[]{"Description", "Credit", "Grade"};
         row = new Object[3];
         model.setColumnIdentifiers(column);
         table.setModel(model);
         predictionPanel.setViewportView(table);
+        table.getTableHeader().setReorderingAllowed(false);
+        table.getTableHeader().setResizingAllowed(false);
 
 
         String[] subjects = {"Subject","Mathematic", "Physics", "Czech","Geoghraphic","Biologic","History", "English"};
         subjectBox = new JComboBox(subjects);
         subjectBox.setBounds(0,0,subjectPanel.getWidth(),subjectPanel.getHeight());
+        subjectBox.setBackground(Color.white);
         subjectBox.setFocusable(false);
         subjectBox.addActionListener(this);
         subjectPanel.add(subjectBox);
@@ -111,6 +110,7 @@ public class Predicator implements ActionListener {
         String[] grades = {"Grade","1","2","3","4","5"};
         gradesBox = new JComboBox(grades);
         gradesBox.setBounds(0,0,gradesPanel.getWidth(),gradesPanel.getHeight());
+        gradesBox.setBackground(Color.white);
         gradesBox.setFocusable(false);
         gradesBox.addActionListener(this);
         gradesBox.setEnabled(false);
@@ -119,6 +119,7 @@ public class Predicator implements ActionListener {
         String[] credits = {"Credit","1","2","3","4","5","6","7","8","9","10"};
         creditsBox = new JComboBox(credits);
         creditsBox.setBounds(0,0,creditsPanel.getWidth(),creditsPanel.getHeight());
+        creditsBox.setBackground(Color.white);
         creditsBox.setFocusable(false);
         creditsBox.addActionListener(this);
         creditsBox.setEnabled(false);
@@ -130,8 +131,8 @@ public class Predicator implements ActionListener {
         resultPanel.add(resultBox);
 
         textField = new JTextField();
-        textField.setBackground(new Color(238, 238, 238));
         textField.setBounds(0,0,textFieldPanel.getWidth(),textFieldPanel.getHeight());
+        textField.setBackground(new Color(238, 238, 238));
         textField.setText("Write topic...");
         textField.setFocusable(false);
         textField.setEnabled(false);
@@ -188,12 +189,14 @@ public class Predicator implements ActionListener {
             creditsBox.setEnabled(false);
             textField.setEnabled(false);
             textField.setFocusable(false);
+            textField.setBackground(new Color(238, 238, 238));
         }
         else{
             gradesBox.setEnabled(true);
             creditsBox.setEnabled(true);
             textField.setEnabled(true);
             textField.setFocusable(true);
+            textField.setBackground(Color.white);
         }
         if(e.getSource() == addGradeButton){
             if (Objects.equals(textField.getText(), "Write topic...")){
@@ -223,8 +226,6 @@ public class Predicator implements ActionListener {
                 resultBox.setText("AVERAGE: " + average);
                 gradeList = new ArrayList<Integer>();
                 creditList = new ArrayList<Integer>();
-//                predictionBox.removeAll();
-//                predictionPanel.removeAll(); //todo why is it doing this?
             }
             subjectIndex = subjectBox.getSelectedIndex();
         }
@@ -277,5 +278,3 @@ public class Predicator implements ActionListener {
 
     }
 }
-//todo umoznit mazat labely (znamky)
-//todo umoznit mackani na button pomoci enteru
