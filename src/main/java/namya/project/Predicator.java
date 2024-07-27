@@ -11,15 +11,12 @@ import java.util.Objects;
 public class Predicator implements ActionListener {
     JFrame frame = new JFrame();
     JLayeredPane layeredPane;
-
-    //public JLayeredPane getLayeredPane() {
-    //    return layeredPane;
-    //}
     int subjectIndex = 0;
     double average = 0;
 
     int grade;
     int credit;
+    Font textFont = new Font("Arial", Font.PLAIN, 15);
     ArrayList<Integer> gradeList;
     ArrayList<Integer> creditList;
     JPanel backgroundPanel;
@@ -45,7 +42,7 @@ public class Predicator implements ActionListener {
     Predicator() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setPreferredSize(new Dimension(700, 700));
-        frame.getContentPane().setBackground(Color.CYAN);
+        frame.getContentPane().setBackground(new Color(255, 112, 56));
         frame.setTitle("Predictor");
         frame.setResizable(false);
 
@@ -87,7 +84,7 @@ public class Predicator implements ActionListener {
         predictionPanel.setBorder(BorderFactory.createLineBorder(Color.black,3));
         predictionPanel.setBounds(30,307,642,330);
 
-
+        Font tableHeaderFont = new Font("Arial",Font.PLAIN,18);
         table = new JTable();
         model = new DefaultTableModel();
         column = new Object[]{"Description", "Credit", "Grade"};
@@ -97,10 +94,13 @@ public class Predicator implements ActionListener {
         predictionPanel.setViewportView(table);
         table.getTableHeader().setReorderingAllowed(false);
         table.getTableHeader().setResizingAllowed(false);
+        table.getTableHeader().setFont(tableHeaderFont);
+
 
 
         String[] subjects = {"Subject","Mathematic", "Physics", "Czech","Geoghraphic","Biologic","History", "English"};
         subjectBox = new JComboBox(subjects);
+        subjectBox.setFont(textFont);
         subjectBox.setBounds(0,0,subjectPanel.getWidth(),subjectPanel.getHeight());
         subjectBox.setBackground(Color.white);
         subjectBox.setFocusable(false);
@@ -109,6 +109,7 @@ public class Predicator implements ActionListener {
 
         String[] grades = {"Grade","1","2","3","4","5"};
         gradesBox = new JComboBox(grades);
+        gradesBox.setFont(textFont);
         gradesBox.setBounds(0,0,gradesPanel.getWidth(),gradesPanel.getHeight());
         gradesBox.setBackground(Color.white);
         gradesBox.setFocusable(false);
@@ -118,6 +119,7 @@ public class Predicator implements ActionListener {
 
         String[] credits = {"Credit","1","2","3","4","5","6","7","8","9","10"};
         creditsBox = new JComboBox(credits);
+        creditsBox.setFont(textFont);
         creditsBox.setBounds(0,0,creditsPanel.getWidth(),creditsPanel.getHeight());
         creditsBox.setBackground(Color.white);
         creditsBox.setFocusable(false);
@@ -125,12 +127,15 @@ public class Predicator implements ActionListener {
         creditsBox.setEnabled(false);
         creditsPanel.add(creditsBox);
 
+        Font resultBoxFont = new Font("Arial",Font.BOLD,14);
         resultBox = new JLabel();
+        resultBox.setFont(resultBoxFont);
         resultBox.setBounds(0,0,resultPanel.getWidth(),resultPanel.getWidth());
         resultBox.setText("AVERAGE: " + average);
         resultPanel.add(resultBox);
 
         textField = new JTextField();
+        textField.setFont(textFont);
         textField.setBounds(0,0,textFieldPanel.getWidth(),textFieldPanel.getHeight());
         textField.setBackground(new Color(238, 238, 238));
         textField.setText("Write topic...");
@@ -140,26 +145,29 @@ public class Predicator implements ActionListener {
 
 
         deleteGradeButton = new JButton();
+        deleteGradeButton.setBorder(BorderFactory.createLineBorder(Color.black,3));
         deleteGradeButton.setBounds(30,643,210,50);
         deleteGradeButton.setText("DELETE GRADE");
         deleteGradeButton.setFocusable(false);
-        deleteGradeButton.setFont(new Font("Arial",Font.BOLD,20));
+        deleteGradeButton.setFont(new Font("Arial",Font.BOLD,18));
         deleteGradeButton.addActionListener(this);
         deleteGradeButton.setEnabled(false);
 
         addGradeButton = new JButton();
+        addGradeButton.setBorder(BorderFactory.createLineBorder(Color.black,3));
         addGradeButton.setBounds(247,643,210,50);
         addGradeButton.setText("ADD GRADE");
         addGradeButton.setFocusable(false);
-        addGradeButton.setFont(new Font("Arial",Font.BOLD,20));
+        addGradeButton.setFont(new Font("Arial",Font.BOLD,18));
         addGradeButton.addActionListener(this);
         addGradeButton.setEnabled(false);
 
         clearGradeButton = new JButton();
+        clearGradeButton.setBorder(BorderFactory.createLineBorder(Color.black,3));
         clearGradeButton.setBounds(462,643,210,50);
         clearGradeButton.setText("CLEAR GRADES");
         clearGradeButton.setFocusable(false);
-        clearGradeButton.setFont(new Font("Arial",Font.BOLD,20));
+        clearGradeButton.setFont(new Font("Arial",Font.BOLD,18));
         clearGradeButton.addActionListener(this);
         clearGradeButton.setEnabled(false);
 
@@ -190,19 +198,17 @@ public class Predicator implements ActionListener {
             textField.setEnabled(false);
             textField.setFocusable(false);
             textField.setBackground(new Color(238, 238, 238));
-        }
-        else{
+        } else {
             gradesBox.setEnabled(true);
             creditsBox.setEnabled(true);
             textField.setEnabled(true);
             textField.setFocusable(true);
             textField.setBackground(Color.white);
         }
-        if(e.getSource() == addGradeButton){
+        if (e.getSource() == addGradeButton){
             if (Objects.equals(textField.getText(), "Write topic...")){
                 row[0] = "";
-            }
-            else{
+            } else {
                 row[0] = textField.getText();
             }
             row[1] = credit;
@@ -220,29 +226,31 @@ public class Predicator implements ActionListener {
             deleteGradeButton.setEnabled(true);
             clearGradeButton.setEnabled(true);
         }
-        if(e.getSource() == subjectBox){
+        if (e.getSource() == subjectBox){
             if (subjectBox.getSelectedIndex() == 0 || subjectBox.getSelectedIndex() != subjectIndex) {
                 average = 0; //
                 resultBox.setText("AVERAGE: " + average);
                 gradeList = new ArrayList<Integer>();
                 creditList = new ArrayList<Integer>();
+                for (int i = table.getRowCount(); i > 0; i--) {
+                    model.removeRow(0);
+                }
             }
             subjectIndex = subjectBox.getSelectedIndex();
         }
-        if(e.getSource() == gradesBox){
+        if (e.getSource() == gradesBox){
             grade = gradesBox.getSelectedIndex();
         }
-        if(e.getSource() == creditsBox){
+        if (e.getSource() == creditsBox){
             credit = creditsBox.getSelectedIndex();
         }
-        if(e.getSource() == deleteGradeButton){
+        if (e.getSource() == deleteGradeButton){
             if (table.getSelectedRowCount()==1){
                 gradeList.remove((model.getValueAt(table.getSelectedRow(),1)));
                 creditList.remove((model.getValueAt(table.getSelectedRow(),1)));
-                AverageCalculator();
                 model.removeRow(table.getSelectedRow());
-            }
-            else{
+                AverageCalculator();
+            } else {
                 JOptionPane.showMessageDialog(null, "Choose grade to delete");
             }
 
@@ -253,7 +261,7 @@ public class Predicator implements ActionListener {
 
             table.clearSelection();
         }
-        if(e.getSource()== clearGradeButton){
+        if (e.getSource()== clearGradeButton){
             for (int i = table.getRowCount(); i > 0; i--){
                 model.removeRow(0);
             }
@@ -268,7 +276,6 @@ public class Predicator implements ActionListener {
     public void AverageCalculator(){
         double result = 0;
         double creditSum = 0;
-
         for (int i = 0; i < creditList.size(); i++){
             result += gradeList.get(i) * creditList.get(i);
             creditSum += creditList.get(i);
@@ -279,7 +286,5 @@ public class Predicator implements ActionListener {
             average = result / creditSum;
         }
         resultBox.setText("AVERAGE: " + average);
-
-
     }
 }
