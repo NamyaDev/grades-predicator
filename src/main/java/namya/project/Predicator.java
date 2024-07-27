@@ -27,7 +27,7 @@ public class Predicator implements ActionListener {
     JPanel resultPanel;
     JScrollPane predictionPanel;
     JTable table;
-    DefaultTableModel model;
+    DefaultTableModel tableModel;
     Object[] column;
     Object[] row;
     JComboBox subjectBox;
@@ -86,11 +86,16 @@ public class Predicator implements ActionListener {
 
         Font tableHeaderFont = new Font("Arial",Font.PLAIN,18);
         table = new JTable();
-        model = new DefaultTableModel();
+        tableModel = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
         column = new Object[]{"Description", "Credit", "Grade"};
         row = new Object[3];
-        model.setColumnIdentifiers(column);
-        table.setModel(model);
+        tableModel.setColumnIdentifiers(column);
+        table.setModel(tableModel);
         predictionPanel.setViewportView(table);
         table.getTableHeader().setReorderingAllowed(false);
         table.getTableHeader().setResizingAllowed(false);
@@ -213,7 +218,7 @@ public class Predicator implements ActionListener {
             }
             row[1] = credit;
             row[2] = grade;
-            model.addRow(row);
+            tableModel.addRow(row);
 
             gradeList.add(gradesBox.getSelectedIndex());
             creditList.add(creditsBox.getSelectedIndex());
@@ -233,7 +238,7 @@ public class Predicator implements ActionListener {
                 gradeList = new ArrayList<Integer>();
                 creditList = new ArrayList<Integer>();
                 for (int i = table.getRowCount(); i > 0; i--) {
-                    model.removeRow(0);
+                    tableModel.removeRow(0);
                 }
             }
             subjectIndex = subjectBox.getSelectedIndex();
@@ -246,9 +251,9 @@ public class Predicator implements ActionListener {
         }
         if (e.getSource() == deleteGradeButton){
             if (table.getSelectedRowCount()==1){
-                gradeList.remove((model.getValueAt(table.getSelectedRow(),1)));
-                creditList.remove((model.getValueAt(table.getSelectedRow(),1)));
-                model.removeRow(table.getSelectedRow());
+                gradeList.remove((tableModel.getValueAt(table.getSelectedRow(),1)));
+                creditList.remove((tableModel.getValueAt(table.getSelectedRow(),1)));
+                tableModel.removeRow(table.getSelectedRow());
                 AverageCalculator();
             } else {
                 JOptionPane.showMessageDialog(null, "Choose grade to delete");
@@ -263,7 +268,7 @@ public class Predicator implements ActionListener {
         }
         if (e.getSource()== clearGradeButton){
             for (int i = table.getRowCount(); i > 0; i--){
-                model.removeRow(0);
+                tableModel.removeRow(0);
             }
             gradeList.clear();
             creditList.clear();
