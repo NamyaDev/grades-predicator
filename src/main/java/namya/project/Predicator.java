@@ -254,7 +254,7 @@ public class Predicator implements ActionListener {
         }
         if (e.getSource() == deleteGradeButton){
             if (table.getSelectedRowCount()==1){
-                gradeList.remove((tableModel.getValueAt(table.getSelectedRow(),1)));
+                gradeList.remove((tableModel.getValueAt(table.getSelectedRow(),2)));
                 creditList.remove((tableModel.getValueAt(table.getSelectedRow(),1)));
                 tableModel.removeRow(table.getSelectedRow());
                 AverageCalculator();
@@ -266,7 +266,8 @@ public class Predicator implements ActionListener {
                 deleteGradeButton.setEnabled(false);
                 clearGradeButton.setEnabled(false);
             }
-
+            System.out.println(gradeList);
+            System.out.println(creditList);
             table.clearSelection();
         }
         if (e.getSource()== clearGradeButton){
