@@ -1,6 +1,8 @@
 package namya.project;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -132,15 +134,9 @@ public class Predicator implements ActionListener {
         creditsBox.setEnabled(false);
         creditsPanel.add(creditsBox);
 
-        Font resultBoxFont = new Font("Arial",Font.BOLD,14);
-        resultBox = new JLabel();
-        resultBox.setFont(resultBoxFont);
-        resultBox.setBounds(0,0,resultPanel.getWidth(),resultPanel.getWidth());
-        resultBox.setText("AVERAGE: " + average);
-        resultPanel.add(resultBox);
-
         textField = new JTextField();
         textField.setFont(textFont);
+        textField.setBorder(new EmptyBorder(0,3,0,0));
         textField.setBounds(0,0,textFieldPanel.getWidth(),textFieldPanel.getHeight());
         textField.setBackground(new Color(238, 238, 238));
         textField.setText("Write topic...");
@@ -148,6 +144,13 @@ public class Predicator implements ActionListener {
         textField.setEnabled(false);
         textFieldPanel.add(textField);
 
+        Font resultBoxFont = new Font("Arial",Font.BOLD,14);
+        resultBox = new JLabel();
+        resultBox.setFont(resultBoxFont);
+        resultBox.setBorder(new EmptyBorder(0,3,0,0));
+        resultBox.setBounds(0,0,resultPanel.getWidth(),resultPanel.getWidth());
+        resultBox.setText("AVERAGE: " + average);
+        resultPanel.add(resultBox);
 
         deleteGradeButton = new JButton();
         deleteGradeButton.setBorder(BorderFactory.createLineBorder(Color.black,3));
