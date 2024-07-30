@@ -97,18 +97,21 @@ public class Predicator implements ActionListener {
                 return false;
             }
         };
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+
         column = new Object[]{"Description", "Credit", "Grade"};
         row = new Object[3];
         tableModel.setColumnIdentifiers(column);
         table.setModel(tableModel);
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         table.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
         table.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
-        predictionPanel.setViewportView(table);
+        table.setFont(textFont);
         table.getTableHeader().setReorderingAllowed(false);
         table.getTableHeader().setResizingAllowed(false);
         table.getTableHeader().setFont(tableHeaderFont);
+        predictionPanel.setViewportView(table);
 
 
 
