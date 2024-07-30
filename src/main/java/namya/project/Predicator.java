@@ -3,7 +3,9 @@ package namya.project;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -91,6 +93,7 @@ public class Predicator implements ActionListener {
         tableModel = new DefaultTableModel(){
             @Override
             public boolean isCellEditable(int row, int column) {
+
                 return false;
             }
         };
@@ -98,6 +101,10 @@ public class Predicator implements ActionListener {
         row = new Object[3];
         tableModel.setColumnIdentifiers(column);
         table.setModel(tableModel);
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        table.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+        table.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
         predictionPanel.setViewportView(table);
         table.getTableHeader().setReorderingAllowed(false);
         table.getTableHeader().setResizingAllowed(false);
@@ -259,15 +266,13 @@ public class Predicator implements ActionListener {
                 tableModel.removeRow(table.getSelectedRow());
                 AverageCalculator();
             } else {
-                JOptionPane.showMessageDialog(null, "Choose grade to delete");
+                JOptionPane.showMessageDialog(null, "Choose grade to delete","",JOptionPane.WARNING_MESSAGE);
             }
 
             if (table.getRowCount()==0){
                 deleteGradeButton.setEnabled(false);
                 clearGradeButton.setEnabled(false);
             }
-            System.out.println(gradeList);
-            System.out.println(creditList);
             table.clearSelection();
         }
         if (e.getSource()== clearGradeButton){
