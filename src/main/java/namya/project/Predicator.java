@@ -57,13 +57,13 @@ public class Predicator implements ActionListener {
         backgroundPanel.setBorder(BorderFactory.createLineBorder(Color.black,3));
 
         subjectPanel = new JPanel();
-        subjectPanel.setLayout(new BorderLayout());
+        subjectPanel.setLayout(new GridBagLayout());
 
         gradesPanel = new JPanel();
-        gradesPanel.setLayout(new BorderLayout());
+        gradesPanel.setLayout(new GridBagLayout());
 
         creditsPanel = new JPanel();
-        creditsPanel.setLayout(new BorderLayout());
+        creditsPanel.setLayout(new GridBagLayout());
 
         textFieldPanel = new JPanel();
         textFieldPanel.setLayout(new BorderLayout());
@@ -72,6 +72,10 @@ public class Predicator implements ActionListener {
         resultPanel = new JPanel();
         resultPanel.setLayout(new BorderLayout());
         resultPanel.setBackground(Color.white);
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5,5,5,5);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
 
         backgroundPanel.add(subjectPanel);
         backgroundPanel.add(gradesPanel);
@@ -114,17 +118,30 @@ public class Predicator implements ActionListener {
         predictionPanel.setViewportView(table);
 
 
-
-        String[] subjects = {"Subject","Mathematic", "Physics", "Czech","Geoghraphic","Biologic","History", "English"};
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 0.1;
+        subjectPanel.add(new JLabel(" Subject: "), gbc);
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.weightx = 10;
+        String[] subjects = {"","Mathematic", "Physics", "Czech","Geoghraphic","Biologic","History", "English"};
         subjectBox = new JComboBox(subjects);
         subjectBox.setFont(textFont);
-        subjectBox.setBounds(0,0,subjectPanel.getWidth(),subjectPanel.getHeight());
+        subjectBox.setSize(subjectPanel.getWidth(),subjectPanel.getHeight());
         subjectBox.setBackground(Color.white);
         subjectBox.setFocusable(false);
         subjectBox.addActionListener(this);
-        subjectPanel.add(subjectBox);
+        subjectPanel.add(subjectBox, gbc);
 
-        String[] grades = {"Grade","1","2","3","4","5"};
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 0.1;
+        gradesPanel.add(new JLabel(" Grade:    "), gbc);
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.weightx = 10;
+        String[] grades = {"","1","2","3","4","5"};
         gradesBox = new JComboBox(grades);
         gradesBox.setFont(textFont);
         gradesBox.setBounds(0,0,gradesPanel.getWidth(),gradesPanel.getHeight());
@@ -132,9 +149,16 @@ public class Predicator implements ActionListener {
         gradesBox.setFocusable(false);
         gradesBox.addActionListener(this);
         gradesBox.setEnabled(false);
-        gradesPanel.add(gradesBox);
+        gradesPanel.add(gradesBox, gbc);
 
-        String[] credits = {"Credit","1","2","3","4","5","6","7","8","9","10"};
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 0.1;
+        creditsPanel.add(new JLabel(" Credit:    "), gbc);
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.weightx = 10;
+        String[] credits = {"","1","2","3","4","5","6","7","8","9","10"};
         creditsBox = new JComboBox(credits);
         creditsBox.setFont(textFont);
         creditsBox.setBounds(0,0,creditsPanel.getWidth(),creditsPanel.getHeight());
@@ -142,7 +166,7 @@ public class Predicator implements ActionListener {
         creditsBox.setFocusable(false);
         creditsBox.addActionListener(this);
         creditsBox.setEnabled(false);
-        creditsPanel.add(creditsBox);
+        creditsPanel.add(creditsBox, gbc);
 
         textField = new JTextField();
         textField.setFont(textFont);
