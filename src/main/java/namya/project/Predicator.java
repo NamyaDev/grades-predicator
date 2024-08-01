@@ -198,7 +198,7 @@ public class Predicator implements ActionListener {
         addGradeButton = new JButton();
         addGradeButton.setBorder(BorderFactory.createLineBorder(Color.black,3));
         addGradeButton.setBounds(247,643,210,50);
-        addGradeButton.setText("ADD GRADE");
+        addGradeButton.setText("ADD RECORD");
         addGradeButton.setFocusable(false);
         addGradeButton.setFont(new Font("Arial",Font.BOLD,18));
         addGradeButton.addActionListener(this);
