@@ -189,7 +189,7 @@ public class Predicator implements ActionListener {
         deleteGradeButton = new JButton();
         deleteGradeButton.setBorder(BorderFactory.createLineBorder(Color.black,3));
         deleteGradeButton.setBounds(30,643,210,50);
-        deleteGradeButton.setText("DELETE GRADE");
+        deleteGradeButton.setText("DELETE RECORD");
         deleteGradeButton.setFocusable(false);
         deleteGradeButton.setFont(new Font("Arial",Font.BOLD,18));
         deleteGradeButton.addActionListener(this);
@@ -207,7 +207,7 @@ public class Predicator implements ActionListener {
         clearGradeButton = new JButton();
         clearGradeButton.setBorder(BorderFactory.createLineBorder(Color.black,3));
         clearGradeButton.setBounds(462,643,210,50);
-        clearGradeButton.setText("CLEAR GRADES");
+        clearGradeButton.setText("CLEAR RECORD");
         clearGradeButton.setFocusable(false);
         clearGradeButton.setFont(new Font("Arial",Font.BOLD,18));
         clearGradeButton.addActionListener(this);
