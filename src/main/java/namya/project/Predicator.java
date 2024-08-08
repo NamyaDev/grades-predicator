@@ -2,10 +2,8 @@ package namya.project;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,34 +13,49 @@ import java.util.Objects;
 public class Predicator implements ActionListener {
     JFrame frame = new JFrame();
     JLayeredPane layeredPane;
+
     int subjectIndex = 0;
     double average = 0;
-
     int grade;
     int credit;
+
+    static String[] subjects = {"","Mathematic", "Physics", "Czech","Geoghraphic","Biologic","History", "English"};
+    static String[] grades = {"","1","2","3","4","5"};
+    static String[] credits = {"","1","2","3","4","5","6","7","8","9","10"};
+
+    static Object[] column = new Object[]{"Description", "Credit", "Grade"};
+    static Object[] row = new Object[3];
+
     Font textFont = new Font("Arial", Font.PLAIN, 15);
+
     ArrayList<Integer> gradeList;
     ArrayList<Integer> creditList;
+
     JPanel backgroundPanel;
     JPanel subjectPanel;
     JPanel gradesPanel;
     JPanel creditsPanel;
     JPanel textFieldPanel;
     JPanel resultPanel;
+    JPanel predictionBox;
+
     JScrollPane predictionPanel;
+
     JTable table;
     DefaultTableModel tableModel;
-    Object[] column;
-    Object[] row;
+
     JComboBox subjectBox;
     JComboBox gradesBox;
     JComboBox creditsBox;
+
     JTextField textField;
+
     JLabel resultBox;
-    JPanel predictionBox;
+
     JButton addGradeButton;
     JButton deleteGradeButton;
     JButton clearGradeButton;
+
     Predicator() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().setPreferredSize(new Dimension(700, 700));
@@ -105,8 +118,6 @@ public class Predicator implements ActionListener {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
 
-        column = new Object[]{"Description", "Credit", "Grade"};
-        row = new Object[3];
         tableModel.setColumnIdentifiers(column);
         table.setModel(tableModel);
         table.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
@@ -122,10 +133,10 @@ public class Predicator implements ActionListener {
         gbc.gridy = 0;
         gbc.weightx = 0.1;
         subjectPanel.add(new JLabel(" Subject: "), gbc);
+
         gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.weightx = 10;
-        String[] subjects = {"","Mathematic", "Physics", "Czech","Geoghraphic","Biologic","History", "English"};
         subjectBox = new JComboBox(subjects);
         subjectBox.setFont(textFont);
         subjectBox.setSize(subjectPanel.getWidth(),subjectPanel.getHeight());
@@ -138,10 +149,10 @@ public class Predicator implements ActionListener {
         gbc.gridy = 0;
         gbc.weightx = 0.1;
         gradesPanel.add(new JLabel(" Grade:    "), gbc);
+
         gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.weightx = 10;
-        String[] grades = {"","1","2","3","4","5"};
         gradesBox = new JComboBox(grades);
         gradesBox.setFont(textFont);
         gradesBox.setBounds(0,0,gradesPanel.getWidth(),gradesPanel.getHeight());
@@ -155,10 +166,10 @@ public class Predicator implements ActionListener {
         gbc.gridy = 0;
         gbc.weightx = 0.1;
         creditsPanel.add(new JLabel(" Credit:    "), gbc);
+
         gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.weightx = 10;
-        String[] credits = {"","1","2","3","4","5","6","7","8","9","10"};
         creditsBox = new JComboBox(credits);
         creditsBox.setFont(textFont);
         creditsBox.setBounds(0,0,creditsPanel.getWidth(),creditsPanel.getHeight());
