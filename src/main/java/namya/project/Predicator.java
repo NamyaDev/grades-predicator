@@ -146,7 +146,7 @@ public class Predicator implements ActionListener {
         gbc.weightx = 10;
         subjectBox = new JComboBox(subjects);
         subjectBox.setFont(textFont);
-        subjectBox.setSize(subjectPanel.getWidth(),subjectPanel.getHeight());
+        subjectBox.setBounds(0,0,subjectPanel.getWidth(),subjectPanel.getHeight());
         subjectBox.setBackground(Color.white);
         subjectBox.setFocusable(false);
         subjectBox.addActionListener(this);
@@ -204,14 +204,11 @@ public class Predicator implements ActionListener {
         resultBox.setText("AVERAGE: " + average);
         resultPanel.add(resultBox);
 
-        deleteGradeButton = new DeleteButton(30,643,210,50,"DELETE RECORD\"");
-        deleteGradeButton.addActionListener(this);
+        deleteGradeButton = new DeleteButton(30,643,210,50,"DELETE RECORD", this);
 
-        addGradeButton = new AddButton(247,643,210,50,"ADD RECORD");
-        addGradeButton.addActionListener(this);
+        addGradeButton = new AddButton(247,643,210,50,"ADD RECORD",this);
 
-        clearGradeButton = new ClearButton(462,643,210,50,"CLEAR RECORD");
-        clearGradeButton.addActionListener(this);
+        clearGradeButton = new ClearButton(462,643,210,50,"CLEAR RECORD",this);
 
 
         layeredPane = new JLayeredPane();
