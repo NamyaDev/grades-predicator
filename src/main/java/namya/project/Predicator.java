@@ -1,5 +1,9 @@
 package namya.project;
 
+import namya.project.ui.buttons.AddButton;
+import namya.project.ui.buttons.ClearButton;
+import namya.project.ui.buttons.DeleteButton;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -37,9 +41,9 @@ public class Predicator implements ActionListener {
     JPanel creditsPanel;
     JPanel textFieldPanel;
     JPanel resultPanel;
-    JPanel predictionBox;
+    JPanel predictionPanel;
 
-    JScrollPane predictionPanel;
+    JScrollPane predictionPane;
 
     JTable table;
     DefaultTableModel tableModel;
@@ -52,7 +56,7 @@ public class Predicator implements ActionListener {
 
     JLabel resultBox;
 
-    JButton addGradeButton;
+    AddButton addGradeButton;
     JButton deleteGradeButton;
     JButton clearGradeButton;
 
@@ -63,11 +67,12 @@ public class Predicator implements ActionListener {
         frame.setTitle("Predictor");
         frame.setResizable(false);
 
+
         backgroundPanel = new JPanel();
         backgroundPanel.setLayout(new GridLayout(5,1,3,3));
-        backgroundPanel.setBackground(Color.black);
-        backgroundPanel.setBounds(30,30,642,282);
+        backgroundPanel.setBackground(Color.BLACK);
         backgroundPanel.setBorder(BorderFactory.createLineBorder(Color.black,3));
+        backgroundPanel.setBounds(30,30,642,282);
 
         subjectPanel = new JPanel();
         subjectPanel.setLayout(new GridBagLayout());
@@ -86,9 +91,6 @@ public class Predicator implements ActionListener {
         resultPanel.setLayout(new BorderLayout());
         resultPanel.setBackground(Color.white);
 
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5,5,5,5);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
 
         backgroundPanel.add(subjectPanel);
         backgroundPanel.add(gradesPanel);
@@ -97,13 +99,18 @@ public class Predicator implements ActionListener {
         backgroundPanel.add(resultPanel);
 
 
-        predictionBox = new JPanel();
-        predictionBox.setBackground(new Color(238, 238, 238));
-        predictionBox.setLayout(new BoxLayout(predictionBox, BoxLayout.Y_AXIS));
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5,5,5,5);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        predictionPanel = new JScrollPane(predictionBox);
-        predictionPanel.setBorder(BorderFactory.createLineBorder(Color.black,3));
-        predictionPanel.setBounds(30,307,642,330);
+
+        predictionPanel = new JPanel();
+        predictionPanel.setBackground(new Color(238, 238, 238));
+        predictionPanel.setLayout(new BoxLayout(predictionPanel, BoxLayout.Y_AXIS));
+
+        predictionPane = new JScrollPane(predictionPanel);
+        predictionPane.setBorder(BorderFactory.createLineBorder(Color.black,3));
+        predictionPane.setBounds(30,307,642,330);
 
         Font tableHeaderFont = new Font("Arial",Font.PLAIN,18);
         table = new JTable();
@@ -126,7 +133,7 @@ public class Predicator implements ActionListener {
         table.getTableHeader().setReorderingAllowed(false);
         table.getTableHeader().setResizingAllowed(false);
         table.getTableHeader().setFont(tableHeaderFont);
-        predictionPanel.setViewportView(table);
+        predictionPane.setViewportView(table);
 
 
         gbc.gridx = 0;
@@ -197,32 +204,14 @@ public class Predicator implements ActionListener {
         resultBox.setText("AVERAGE: " + average);
         resultPanel.add(resultBox);
 
-        deleteGradeButton = new JButton();
-        deleteGradeButton.setBorder(BorderFactory.createLineBorder(Color.black,3));
-        deleteGradeButton.setBounds(30,643,210,50);
-        deleteGradeButton.setText("DELETE RECORD");
-        deleteGradeButton.setFocusable(false);
-        deleteGradeButton.setFont(new Font("Arial",Font.BOLD,18));
+        deleteGradeButton = new DeleteButton(30,643,210,50,"DELETE RECORD\"");
         deleteGradeButton.addActionListener(this);
-        deleteGradeButton.setEnabled(false);
 
-        addGradeButton = new JButton();
-        addGradeButton.setBorder(BorderFactory.createLineBorder(Color.black,3));
-        addGradeButton.setBounds(247,643,210,50);
-        addGradeButton.setText("ADD RECORD");
-        addGradeButton.setFocusable(false);
-        addGradeButton.setFont(new Font("Arial",Font.BOLD,18));
+        addGradeButton = new AddButton(247,643,210,50,"ADD RECORD");
         addGradeButton.addActionListener(this);
-        addGradeButton.setEnabled(false);
 
-        clearGradeButton = new JButton();
-        clearGradeButton.setBorder(BorderFactory.createLineBorder(Color.black,3));
-        clearGradeButton.setBounds(462,643,210,50);
-        clearGradeButton.setText("CLEAR RECORD");
-        clearGradeButton.setFocusable(false);
-        clearGradeButton.setFont(new Font("Arial",Font.BOLD,18));
+        clearGradeButton = new ClearButton(462,643,210,50,"CLEAR RECORD");
         clearGradeButton.addActionListener(this);
-        clearGradeButton.setEnabled(false);
 
 
         layeredPane = new JLayeredPane();
@@ -231,7 +220,7 @@ public class Predicator implements ActionListener {
         layeredPane.add(deleteGradeButton);
         layeredPane.add(addGradeButton);
         layeredPane.add(clearGradeButton);
-        layeredPane.add(predictionPanel);
+        layeredPane.add(predictionPane);
 
         frame.add(layeredPane);
         frame.pack();
