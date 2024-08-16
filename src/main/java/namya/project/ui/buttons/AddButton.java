@@ -1,7 +1,10 @@
 package namya.project.ui.buttons;
 
-public class AddButton extends CommonButton{
-    public AddButton(int x, int y, int width, int height, String text){
+import java.awt.event.ActionListener;
+
+public class AddButton extends CommonButtons {
+    public AddButton(int x, int y, int width, int height, String text, ActionListener listener){
+        super(listener);
         this.setBounds(x,y,width,height);
         this.setText(text);
     }
