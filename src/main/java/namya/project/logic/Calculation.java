@@ -3,10 +3,10 @@ package namya.project.logic;
 import javax.swing.*;
 import java.util.ArrayList;
 
-public class Calculator extends JLabel{
-    public Calculator(){
+public class Calculation extends JLabel{
+    public Calculation(){
     }
-    public double AverageCalculator(ArrayList<Integer> gradeList, ArrayList<Integer> creditList, double average, JLabel resultBox){
+    public double averageCalculation(ArrayList<Integer> gradeList, ArrayList<Integer> creditList, double average, JLabel resultBox){
         double result = 0;
         double creditSum = 0;
         for (int i = 0; i < creditList.size(); i++){
