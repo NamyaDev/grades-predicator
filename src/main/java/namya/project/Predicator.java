@@ -1,5 +1,9 @@
 package namya.project;
 
+import namya.project.logic.Calculation;
+import namya.project.ui.ComboBoxes.CreditComboBox;
+import namya.project.ui.ComboBoxes.GradeComboBox;
+import namya.project.ui.ComboBoxes.SubjectComboBox;
 import namya.project.ui.buttons.AddButton;
 import namya.project.ui.buttons.ClearButton;
 import namya.project.ui.buttons.DeleteButton;
@@ -16,6 +20,9 @@ import java.util.Objects;
 
 public class Predicator implements ActionListener {
     JFrame frame = new JFrame();
+
+    Calculation Calculator = new Calculation();
+
     JLayeredPane layeredPane;
 
     int subjectIndex = 0;
@@ -48,9 +55,9 @@ public class Predicator implements ActionListener {
     JTable table;
     DefaultTableModel tableModel;
 
-    JComboBox subjectBox;
-    JComboBox gradesBox;
-    JComboBox creditsBox;
+    SubjectComboBox subjectBox;
+    GradeComboBox gradesBox;
+    CreditComboBox creditsBox;
 
     JTextField textField;
 
@@ -90,13 +97,6 @@ public class Predicator implements ActionListener {
         resultPanel = new JPanel();
         resultPanel.setLayout(new BorderLayout());
         resultPanel.setBackground(Color.white);
-
-
-        backgroundPanel.add(subjectPanel);
-        backgroundPanel.add(gradesPanel);
-        backgroundPanel.add(creditsPanel);
-        backgroundPanel.add(textFieldPanel);
-        backgroundPanel.add(resultPanel);
 
 
         GridBagConstraints gbc = new GridBagConstraints();
@@ -144,12 +144,7 @@ public class Predicator implements ActionListener {
         gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.weightx = 10;
-        subjectBox = new JComboBox(subjects);
-        subjectBox.setFont(textFont);
-        subjectBox.setBounds(0,0,subjectPanel.getWidth(),subjectPanel.getHeight());
-        subjectBox.setBackground(Color.white);
-        subjectBox.setFocusable(false);
-        subjectBox.addActionListener(this);
+        subjectBox = new SubjectComboBox(textFont,subjectPanel.getWidth(),subjectPanel.getHeight(), this);
         subjectPanel.add(subjectBox, gbc);
 
         gbc.gridx = 0;
@@ -160,13 +155,7 @@ public class Predicator implements ActionListener {
         gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.weightx = 10;
-        gradesBox = new JComboBox(grades);
-        gradesBox.setFont(textFont);
-        gradesBox.setBounds(0,0,gradesPanel.getWidth(),gradesPanel.getHeight());
-        gradesBox.setBackground(Color.white);
-        gradesBox.setFocusable(false);
-        gradesBox.addActionListener(this);
-        gradesBox.setEnabled(false);
+        gradesBox = new GradeComboBox(textFont,gradesPanel.getWidth(),gradesPanel.getHeight(), this);
         gradesPanel.add(gradesBox, gbc);
 
         gbc.gridx = 0;
@@ -177,13 +166,7 @@ public class Predicator implements ActionListener {
         gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.weightx = 10;
-        creditsBox = new JComboBox(credits);
-        creditsBox.setFont(textFont);
-        creditsBox.setBounds(0,0,creditsPanel.getWidth(),creditsPanel.getHeight());
-        creditsBox.setBackground(Color.white);
-        creditsBox.setFocusable(false);
-        creditsBox.addActionListener(this);
-        creditsBox.setEnabled(false);
+        creditsBox = new CreditComboBox(textFont,creditsPanel.getWidth(),creditsPanel.getHeight(), this);
         creditsPanel.add(creditsBox, gbc);
 
         textField = new JTextField();
@@ -213,6 +196,11 @@ public class Predicator implements ActionListener {
 
         layeredPane = new JLayeredPane();
         layeredPane.setBounds(0,0,700,700);
+        backgroundPanel.add(subjectPanel);
+        backgroundPanel.add(gradesPanel);
+        backgroundPanel.add(creditsPanel);
+        backgroundPanel.add(textFieldPanel);
+        backgroundPanel.add(resultPanel);
         layeredPane.add(backgroundPanel);
         layeredPane.add(deleteGradeButton);
         layeredPane.add(addGradeButton);
@@ -225,7 +213,8 @@ public class Predicator implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e)
+    {
         addGradeButton.setEnabled(subjectBox.getSelectedIndex() != 0 && gradesBox.getSelectedIndex() != 0 && creditsBox.getSelectedIndex() != 0);
         if (subjectBox.getSelectedIndex() == 0 || subjectBox.getSelectedIndex() != subjectIndex){
             gradesBox.setSelectedIndex(0);
@@ -256,7 +245,8 @@ public class Predicator implements ActionListener {
 
             gradeList.add(gradesBox.getSelectedIndex());
             creditList.add(creditsBox.getSelectedIndex());
-            AverageCalculator();
+
+            Calculator.averageCalculation(gradeList,creditList,average,resultBox);
 
             gradesBox.setSelectedIndex(0);
             creditsBox.setSelectedIndex(0);
@@ -288,7 +278,9 @@ public class Predicator implements ActionListener {
                 gradeList.remove((tableModel.getValueAt(table.getSelectedRow(),2)));
                 creditList.remove((tableModel.getValueAt(table.getSelectedRow(),1)));
                 tableModel.removeRow(table.getSelectedRow());
-                AverageCalculator();
+
+                Calculator.averageCalculation(gradeList,creditList,average,resultBox);
+
             } else {
                 JOptionPane.showMessageDialog(null, "Choose grade to delete","",JOptionPane.WARNING_MESSAGE);
             }
@@ -310,19 +302,5 @@ public class Predicator implements ActionListener {
             deleteGradeButton.setEnabled(false);
             clearGradeButton.setEnabled(false);
         }
-    }
-    public void AverageCalculator(){
-        double result = 0;
-        double creditSum = 0;
-        for (int i = 0; i < creditList.size(); i++){
-            result += gradeList.get(i) * creditList.get(i);
-            creditSum += creditList.get(i);
-        }
-        if (creditSum == 0){
-            average = 0;
-        } else {
-            average = result / creditSum;
-        }
-        resultBox.setText("AVERAGE: " + average);
     }
 }
