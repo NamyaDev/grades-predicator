@@ -26,21 +26,17 @@ public class Predicator implements ActionListener {
     JLayeredPane layeredPane;
 
     int subjectIndex = 0;
-    double average = 0;
-    int grade;
-    int credit;
+    private double average = 0;
+    private int grade;
+    private int credit;
 
-    static String[] subjects = {"","Mathematic", "Physics", "Czech","Geoghraphic","Biologic","History", "English"};
-    static String[] grades = {"","1","2","3","4","5"};
-    static String[] credits = {"","1","2","3","4","5","6","7","8","9","10"};
-
-    static Object[] column = new Object[]{"Description", "Credit", "Grade"};
-    static Object[] row = new Object[3];
+    private static Object[] column = new Object[]{"Description", "Credit", "Grade"};
+    private static Object[] row = new Object[3];
 
     Font textFont = new Font("Arial", Font.PLAIN, 15);
 
-    ArrayList<Integer> gradeList;
-    ArrayList<Integer> creditList;
+    private ArrayList<Integer> gradeList;
+    private ArrayList<Integer> creditList;
 
     JPanel backgroundPanel;
     JPanel subjectPanel;
@@ -302,5 +298,61 @@ public class Predicator implements ActionListener {
             deleteGradeButton.setEnabled(false);
             clearGradeButton.setEnabled(false);
         }
+    }
+
+    public double getAverage() {
+        return average;
+    }
+
+    public void setAverage(double average) {
+        this.average = average;
+    }
+
+    public int getGrade() {
+        return grade;
+    }
+
+    public void setGrade(int grade) {
+        this.grade = grade;
+    }
+
+    public int getCredit() {
+        return credit;
+    }
+
+    public void setCredit(int credit) {
+        this.credit = credit;
+    }
+
+    public static Object[] getColumn() {
+        return column;
+    }
+
+    public static void setColumn(Object[] column) {
+        Predicator.column = column;
+    }
+
+    public static Object[] getRow() {
+        return row;
+    }
+
+    public static void setRow(Object[] row) {
+        Predicator.row = row;
+    }
+
+    public ArrayList<Integer> getGradeList() {
+        return gradeList;
+    }
+
+    public void setGradeList(ArrayList<Integer> gradeList) {
+        this.gradeList = gradeList;
+    }
+
+    public ArrayList<Integer> getCreditList() {
+        return creditList;
+    }
+
+    public void setCreditList(ArrayList<Integer> creditList) {
+        this.creditList = creditList;
     }
 }
