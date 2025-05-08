@@ -18,7 +18,7 @@ public class Calculation extends JLabel{
         } else {
             average = result / creditSum;
         }
-        resultBox.setText("AVERAGE: " + average);
+        resultBox.setText("AVERAGE: " + String.format("%.2f", average));
         return  average;
     }
 }
